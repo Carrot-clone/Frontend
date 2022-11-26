@@ -20,7 +20,7 @@ const Home = () => {
         <p className='font-soojin text-[15px] text-gray-300'>아직 회원이 아니시라면?</p>
         <button
           className='w-72 h-14 rounded-xl bg-green-50 hover:bg-green-100 font-soojin text-black-50'
-          onClick={() => router.push('/auth/singup')}
+          onClick={() => router.push('/auth/signup')}
         >
           회원가입
         </button>
