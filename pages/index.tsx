@@ -1,12 +1,31 @@
-import BaseLayout from '../components/layout/BaseLayout';
-import Header from '../components/layout/Header';
-import styles from '../styles/Home.module.css';
+import React from 'react';
+import Image from 'next/image';
+import melon from 'public/melonmarket.svg';
+import { useRouter } from 'next/router';
 
 const Home = () => {
+  const router = useRouter();
+
   return (
-    
-    <div>씨발</div>
-    
+    <section className='flex flex-col justify-center items-center w-full h-full'>
+      <Image src={melon} alt='logo' width={300} height={50} />
+
+      <div className='flex flex-col justify-center items-center mt-20'>
+        <button
+          className='w-72 h-14 rounded-xl bg-green-50 hover:bg-green-100 font-soojin text-black-50 mb-3'
+          onClick={() => router.push('/auth/login')}
+        >
+          로그인
+        </button>
+        <p className='font-soojin text-[15px] text-gray-300'>아직 회원이 아니시라면?</p>
+        <button
+          className='w-72 h-14 rounded-xl bg-green-50 hover:bg-green-100 font-soojin text-black-50'
+          onClick={() => router.push('/auth/singup')}
+        >
+          회원가입
+        </button>
+      </div>
+    </section>
   );
 };
 

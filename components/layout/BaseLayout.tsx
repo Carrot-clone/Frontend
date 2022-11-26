@@ -1,15 +1,30 @@
 import Link from 'next/link';
-import { PropsWithChildren } from 'react';
+import { PropsWithChildren, useEffect, useState } from 'react';
 import melon from 'public/melonmarket.svg';
 import Image from 'next/image';
 
 const BaseLayout = ({ children }: PropsWithChildren) => {
+  const BaseUrl = 'http://localhost:3000';
+
+  useEffect(() => {
+    if (typeof window !== 'undefined') {
+      const nowHref = window.location.href;
+      if (nowHref === BaseUrl + '/' || nowHref === BaseUrl + '/auth/login' || nowHref === BaseUrl + '/auth/singup') {
+        setHome(true);
+      } else {
+        setHome(false);
+      }
+    }
+  }, []);
+
+  const [home, setHome] = useState<boolean>(false);
+
   return (
     <section className='flex flex-col justify-center items-center w-full h-[100vh] bg-green-100'>
       <div className='flex flex-col justify-center items-center mb-5 w-[200px] h-[50px]'>
-        <Image src={melon} alt='mainlogo' />
+        {!home && <Image src={melon} alt='mainlogo' />}
       </div>
-        <div className='w-[500px] h-[950px] bg-white'>{children}</div>
+      <div className='w-[500px] h-[950px] rounded-[50px] bg-white'>{children}</div>
     </section>
   );
 };
