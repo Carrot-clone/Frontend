@@ -1,5 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
+import FloatingButton from '../../components/FloatingButton';
 
 const Main = () => {
   return (
@@ -47,7 +48,7 @@ const Main = () => {
           </div>
           <div className='w-72 h-32 border rounded-2xl'></div>
         </div>
-        
+        <FloatingButton />
       </div>
     </section>
   );
