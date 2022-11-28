@@ -22,7 +22,8 @@ const BaseLayout = ({ children }: PropsWithChildren) => {
   }, []);
 
   return (
-    <section className='flex flex-col justify-center items-center w-full h-[100vh] bg-green-100'>
+    <section className='flex flex-col justify-center items-center w-full h-[100vh] bg-green-100 z-[10]'>
+      
       <div className='flex flex-col justify-center items-center mb-5 w-[200px] h-[50px]'>
         {!home && <Image src={melon} alt='mainlogo' />}
       </div>

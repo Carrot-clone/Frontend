@@ -53,7 +53,7 @@ const Sell = () => {
             <div>
               <FontAwesomeIcon icon={faCameraRetro} />
               <div className='flex flex-row'>
-                <p className='text-[15px] text-orange-300'>{images.length}&nbsp;</p>
+                <p className='text-[15px] text-green-300'>{images.length}&nbsp;</p>
                 <p className='text-[15px]'> / 3</p>
               </div>
             </div>
@@ -65,7 +65,7 @@ const Sell = () => {
               <button
                 id={String(id)}
                 type='button'
-                className='absolute text-red-300 right-2 text-[20px]'
+                className='absolute text-red-300 right-2 text-[20px] z-10'
                 onClick={(e) => handleDeletePrevImg(e)}
               >
                 <FontAwesomeIcon icon={faCircleXmark} />
@@ -91,7 +91,7 @@ const Sell = () => {
         </button>
         <button
           className='w-80 h-14 rounded-xl bg-red-50 hover:bg-red-100 font-soojin text-black-50'
-          onClick={() => router.push('-1')}
+          onClick={() => router.push('/')}
         >
           뒤로가기
         </button>

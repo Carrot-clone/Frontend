@@ -53,7 +53,7 @@ const Edit = () => {
             <div>
               <FontAwesomeIcon icon={faCameraRetro} />
               <div className='flex flex-row'>
-                <p className='text-[15px] text-orange-300'>{images.length}&nbsp;</p>
+                <p className='text-[15px] text-green-300'>{images.length}&nbsp;</p>
                 <p className='text-[15px]'> / 3</p>
               </div>
             </div>

@@ -1,7 +1,6 @@
 import React from 'react';
 import Image from 'next/image';
 import melon from 'public/melonmarket.svg';
-import BaseLayout from '../../components/layout/BaseLayout';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 
