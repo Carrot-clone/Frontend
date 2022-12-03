@@ -1,14 +1,16 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   purge: ['./pages/**/*.{js,jsx,ts,tsx}', './components/**/*.{ts,tsx,js,jsx}'],
-  darkMode: false, 
+  darkMode: false,
   theme: {
-      extend: {fontFamily : {
-        'soojin' : ['ImcreSoojin']
-      }},
+    extend: {
+      fontFamily: {
+        soojin: ['ImcreSoojin'],
+      },
+    },
   },
   variants: {
-      extend: {},
+    extend: {},
   },
   plugins: [require('tailwind-scrollbar-hide')],
-}
+};
