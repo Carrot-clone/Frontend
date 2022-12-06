@@ -7,8 +7,8 @@ const Home = () => {
   const router = useRouter();
 
   return (
-    <section className='flex flex-col justify-center items-center w-full h-full'>
-      <Image src={melon} alt='logo' width={300} height={50} />
+    <section className='flex flex-col justify-center items-center w-full h-full  bg-white rounded-[45px]'>
+      <Image src={melon} alt='logo' width={200} height={30} />
 
       <div className='flex flex-col justify-center items-center mt-20'>
         <button

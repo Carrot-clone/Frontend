@@ -35,9 +35,10 @@ const Signup = () => {
     formData.append('username', getValues('nickname'));
     formData.append('profilePhoto', file[0]);
      const signUpResponse = await apis.signUp(formData);
+    
      if(signUpResponse.status === 201){
       alert(signUpResponse.msg)
-      router.push('/main')
+      router.push('/market/main')
      }else{
       alert(signUpResponse.msg)
      }     
@@ -53,7 +54,7 @@ const Signup = () => {
   
   return (
     <section className='flex flex-col justify-center items-center w-full h-full bg-white rounded-[45px]'>
-      <Image src={melon} alt='logo' width={300} height={50} />
+      <Image src={melon} alt='logo' width={200} height={30} />
       <div className='flex flex-col justify-center gap-3 mt-3 font-soojin'>
         <div className='flex flex-col justify-center items-center'>
           <label htmlFor='nickname'>프로필</label>

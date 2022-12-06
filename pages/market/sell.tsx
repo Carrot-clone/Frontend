@@ -3,12 +3,12 @@ import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleXmark, faCameraRetro } from '@fortawesome/free-solid-svg-icons';
+import { apis } from '../../apis/axiosUtil';
 
 const Sell = () => {
   const { register, getValues } = useForm();
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement | null>(null);
-  //   const [preImage, setPreImage] = useState([]);
   const [images, setImages] = useState<string[]>([]);
   const [uploadImage, setUploadImage] = useState<File[]>([]);
 
@@ -42,8 +42,21 @@ const Sell = () => {
     inputRef.current.click();
   }, []);
 
+  const writePost = async () => {
+    const writeReqeust = {
+      image: uploadImage,
+      title: getValues('title'),
+      category: getValues('category'),
+      price: getValues('price'),
+      content: getValues('content'),
+    };
+    console.log(writeReqeust)
+    const writeResponse = await apis.postSellingItem(writeReqeust)
+    console.log(writeResponse);
+  };
+
   return (
-    <section className='w-full h-full p-8 font-soojin'>
+    <section className='w-full h-full p-8 font-soojin bg-white rounded-[45px]'>
       <div className='flex flex-row w-full h-[10rem] mt-5 overflow-x-auto scrollbar-hide'>
         <div>
           <button
@@ -86,7 +99,9 @@ const Sell = () => {
         <textarea className='w-full h-52 border' {...register('content')}></textarea>
       </div>
       <div className='flex flex-row justify-center items-center gap-5 mt-10'>
-        <button className='w-80 h-14 rounded-xl bg-green-50 hover:bg-green-100 font-soojin text-black-50'>
+        <button className='w-80 h-14 rounded-xl bg-green-50 hover:bg-green-100 font-soojin text-black-50'
+        onClick={() => writePost()}
+        >
           작성하기
         </button>
         <button
