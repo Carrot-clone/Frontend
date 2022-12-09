@@ -4,11 +4,12 @@ import melon from 'public/melonmarket.svg';
 import { useForm } from 'react-hook-form';
 import { useRouter } from 'next/router';
 import { apis } from '../../apis/axiosUtil';
+import defaultImage from '../../public/defaultImage.png';
 
 const Signup = () => {
   const router = useRouter();
   const inputRef = useRef<HTMLInputElement | null>(null);
-  const [imgSrc, setImgSrc] = useState<string>('');
+  const [imgSrc, setImgSrc] = useState<string>();
   const [file, setFile] = useState<File[] | any>();
   const { getValues, register } = useForm();
 
@@ -33,16 +34,17 @@ const Signup = () => {
     formData.append('email', getValues('id'));
     formData.append('password', getValues('password'));
     formData.append('username', getValues('nickname'));
-    formData.append('profilePhoto', file[0]);
-     const signUpResponse = await apis.signUp(formData);
-    
-     if(signUpResponse.status === 201){
-      alert(signUpResponse.msg)
-      router.push('/market/main')
-     }else{
-      alert(signUpResponse.msg)
-     }     
-     
+    if (file) {
+      formData.append('profilePhoto', file[0]);
+    }
+    const signUpResponse = await apis.signUp(formData);
+
+    if (signUpResponse.status === 201) {
+      alert(signUpResponse.msg);
+      router.push('/login');
+    } else {
+      alert(signUpResponse.msg);
+    }
   };
 
   const imageUplaodButton = useCallback(() => {
@@ -51,7 +53,7 @@ const Signup = () => {
     }
     inputRef.current.click();
   }, []);
-  
+
   return (
     <section className='flex flex-col justify-center items-center w-full h-full bg-white rounded-[45px]'>
       <Image src={melon} alt='logo' width={200} height={30} />
@@ -59,12 +61,19 @@ const Signup = () => {
         <div className='flex flex-col justify-center items-center'>
           <label htmlFor='nickname'>프로필</label>
           <input className='hidden' type='file' ref={inputRef} onChange={(e) => onUploadImage(e)} />
-          <img src={imgSrc ? imgSrc : ''} className='w-28 h-28 border rounded-full' />
-          <button onClick={() => imageUplaodButton()}>Upload</button>
+          {imgSrc ? (
+            <img src={imgSrc} className='w-28 h-28 border rounded-full' />
+          ) : (
+            <Image src={defaultImage} alt='' width={114} height={114} />
+          )}
+
+          <button onClick={() => imageUplaodButton()} className='cursor-pointer'>
+            Upload
+          </button>
         </div>
         <label htmlFor='id'>아이디</label>
         <div className='flex flex-row justify-between'>
-          <input className='w-[16rem] h-12 border' type='text' {...register('id')} />
+          <input type='email' className='w-[16rem] h-12 border' {...register('id')} />
           <button
             className='w-[4rem] h-12 border border-l-0 bg-green-50 hover:bg-green-100'
             onClick={() => emailDuplicatdCheck()}

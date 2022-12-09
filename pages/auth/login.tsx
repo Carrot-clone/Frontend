@@ -33,6 +33,7 @@ const Login = () => {
     };
     try {
       const userSignInResponse = await apis.signIn(userSignUpRequest)
+      console.log(userSignInResponse)
       const accessToken = userSignInResponse.accessToken;
       const refreshToken = userSignInResponse.refreshToken;
       setTokens(accessToken, refreshToken)

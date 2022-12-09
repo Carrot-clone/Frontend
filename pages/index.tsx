@@ -9,7 +9,6 @@ const Home = () => {
   return (
     <section className='flex flex-col justify-center items-center w-full h-full  bg-white rounded-[45px]'>
       <Image src={melon} alt='logo' width={200} height={30} />
-
       <div className='flex flex-col justify-center items-center mt-20'>
         <button
           className='w-72 h-14 rounded-xl bg-green-50 hover:bg-green-100 font-soojin text-black-50 mb-3'

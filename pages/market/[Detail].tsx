@@ -2,7 +2,6 @@ import React from 'react';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Navigation, Pagination } from 'swiper';
 import 'swiper/swiper.min.css'
-// import 'swiper/components/pagination/pagination.min.css'
 
 const Detail = () => {
   return (

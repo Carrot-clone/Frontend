@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { DuplicatedCheck } from './axiosTyping';
 
-export const SERVER_URL = 'http://13.124.29.76:8000';
+export const SERVER_URL = 'http://43.201.52.22:8000/';
 
 export const instance = axios.create({
   withCredentials: true,
@@ -9,10 +9,10 @@ export const instance = axios.create({
 });
 
 instance.interceptors.request.use((req) => {
-  if (req.headers && localStorage.getItem('accessToken')) {
+  if (req.headers && localStorage.getItem('accessToken') !== undefined) {
     req.headers.Authorization = `Bearer ${window.localStorage.getItem('accessToken')}`;
     // req.headers.refreshToken = `${window.localStorage.getItem('refreshToken')}`;
-    req.headers = {'X-CSRFToken' : '{{csrf_token}}'}
+    // req.headers = {'X-CSRFToken' : '{{csrf_token}}'}
   }
   return req;
 });
@@ -56,7 +56,7 @@ export const apis = {
       }),
   signIn: (userSignIn: any) =>
     instance
-      .post('api/user/login', userSignIn)
+      .post('/api/user/signin', userSignIn)
       .then((res) => {
         return res.data;
       })
