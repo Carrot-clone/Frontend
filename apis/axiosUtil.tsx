@@ -76,6 +76,15 @@ export const apis = {
       .catch((err) => {
         console.log(err);
       }),
+  fetchItemDetail: (postId: number) =>
+    instance
+      .get(`/api/post/${postId}`)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      }),
   postSellingItem: (postRequset: any) =>
     instance.post('/api/post', postRequset).then((res) => {
       return res.data;
