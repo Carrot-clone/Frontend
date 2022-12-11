@@ -1,4 +1,4 @@
-import React, {useCallback} from 'react';
+import React, { useCallback } from 'react';
 import Image from 'next/image';
 import melon from 'public/melonmarket.svg';
 import { useForm } from 'react-hook-form';
@@ -32,16 +32,15 @@ const Login = () => {
       password: getValues('password'),
     };
     try {
-      const userSignInResponse = await apis.signIn(userSignUpRequest)
-      console.log(userSignInResponse)
+      const userSignInResponse = await apis.signIn(userSignUpRequest);
       const accessToken = userSignInResponse.accessToken;
       const refreshToken = userSignInResponse.refreshToken;
-      setTokens(accessToken, refreshToken)
-      router.push('/market/main')
-      return {msg: 'test', res: true}
+      setTokens(accessToken, refreshToken);
+      router.push('/market/main');
+      return { msg: 'test', res: true };
     } catch (error) {
-      alert(error)
-      return {msg: 'test2', res: false}
+      alert(error);
+      return { msg: 'test2', res: false };
     }
   };
 
@@ -55,8 +54,10 @@ const Login = () => {
         <input className='w-80 h-12 border' type='password' {...register('password')} />
       </div>
       <div className='flex flex-col justify-center items-center gap-5 mt-10'>
-        <button className='w-80 h-14 rounded-xl bg-green-50 hover:bg-green-100 font-soojin text-black-50'
-        onClick={() => userSignIn()}>
+        <button
+          className='w-80 h-14 rounded-xl bg-green-50 hover:bg-green-100 font-soojin text-black-50'
+          onClick={() => userSignIn()}
+        >
           로그인
         </button>
         <button

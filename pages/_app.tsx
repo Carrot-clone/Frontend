@@ -1,4 +1,5 @@
 import '../styles/globals.css';
+import '../styles/swiper.css'
 import 'tailwindcss/tailwind.css';
 import type { AppProps } from 'next/app';
 import BaseLayout from '../components/layout/BaseLayout';

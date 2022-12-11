@@ -4,6 +4,7 @@ import { apis } from '../../apis/axiosUtil';
 import dayjs from 'dayjs';
 import Link from 'next/link';
 import Header from '../../components/Header';
+import { useRouter } from 'next/router';
 
 interface ItemsState {
   createdAt: string;
@@ -14,14 +15,16 @@ interface ItemsState {
   title: string;
 }
 
-const Main = () => {
+const Search = () => {
   const [items, setItems] = useState<ItemsState[]>([]);
   const [page, setPage] = useState<number>(1);
   const [isLast, setIsLast] = useState<HTMLDivElement | null>(null);
+  const router = useRouter();
+  const keyword = String(router.query.keyword)
 
-  const fetchItemList = async () => {
+  const fetchSearchItemList = async () => {
     try {
-      const itemsList = await apis.fetchMainItemList(page);
+      const itemsList = await apis.fetchSearchItemList(page, keyword);
       setItems(items.concat(itemsList.results));
     } catch {
       console.error('fetching error');
@@ -29,7 +32,7 @@ const Main = () => {
   };
 
   useEffect(() => {
-    fetchItemList();
+    fetchSearchItemList();
   }, [page]);
 
   const onIntersect: IntersectionObserverCallback = (entries, observer) => {
@@ -88,4 +91,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Search;

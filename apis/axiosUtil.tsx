@@ -76,6 +76,16 @@ export const apis = {
       .catch((err) => {
         console.log(err);
       }),
+  fetchSearchItemList: (page: number, keyword: string) =>
+    instance
+      .get(`/api/post/list/?page=${page}&search=${keyword}`)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      }),
+
   fetchItemDetail: (postId: number) =>
     instance
       .get(`/api/post/${postId}`)

@@ -106,7 +106,7 @@ const Sell = () => {
         </button>
         <button
           className='w-80 h-14 rounded-xl bg-red-50 hover:bg-red-100 font-soojin text-black-50'
-          onClick={() => router.push('/')}
+          onClick={() => router.push('/market/main')}
         >
           뒤로가기
         </button>
