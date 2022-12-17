@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { DuplicatedCheck } from './axiosTyping';
 
-export const SERVER_URL = 'http://43.201.52.22:8000/';
+export const SERVER_URL = 'https://melonmelon.shop/';
 
 export const instance = axios.create({
   withCredentials: true,
@@ -9,10 +9,8 @@ export const instance = axios.create({
 });
 
 instance.interceptors.request.use((req) => {
-  if (req.headers && localStorage.getItem('accessToken') !== undefined) {
+  if (req.headers && window.localStorage.getItem('accessToken') !== null) {
     req.headers.Authorization = `Bearer ${window.localStorage.getItem('accessToken')}`;
-    // req.headers.refreshToken = `${window.localStorage.getItem('refreshToken')}`;
-    // req.headers = {'X-CSRFToken' : '{{csrf_token}}'}
   }
   return req;
 });
@@ -95,6 +93,15 @@ export const apis = {
       .catch((err) => {
         console.log(err);
       }),
+  fetchCategoryItems: (page: number, category: string) =>
+    instance
+      .get(`/api/post/category/list/?page=${page}&category=${category}`)
+      .then((res) => {
+        return res.data;
+      })
+      .catch((err) => {
+        console.log(err);
+      }),
   postSellingItem: (postRequset: any) =>
     instance.post('/api/post', postRequset).then((res) => {
       return res.data;
@@ -103,4 +110,17 @@ export const apis = {
     instance.get(`/api/post/${postId}`).then((res) => {
       return res.data;
     }),
+  postEdit: (postId: number, editRequest: any) =>
+    instance.put(`/api/post/${postId}`, editRequest).then((res) => {
+      return res.data;
+    }),
+
+  likeItem: (postId: number) =>
+    instance.post(`/api/post/${postId}/heart`).then((res) => {
+      return res.data;
+    }),
+    deleteImage: (postId : number, img: any) => 
+    instance.delete(`api/post/${postId}/${img}`).then((res) => {
+      return res.data;
+    })
 };

@@ -5,10 +5,12 @@ import dayjs from 'dayjs';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import SwiperCore, { Autoplay, Navigation, Pagination } from 'swiper';
 import Link from 'next/link';
-import { category } from '../../constantance/constance';
+import { categoryObj } from '../../constantance/constance';
 import 'swiper/scss';
 import 'swiper/scss/navigation';
 import 'swiper/scss/pagination';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faHeart } from '@fortawesome/free-solid-svg-icons';
 
 SwiperCore.use([Navigation, Pagination, Autoplay]);
 interface ItemsDetail {
@@ -16,7 +18,7 @@ interface ItemsDetail {
   otherPosts: OtherPosts[];
 }
 
-interface ItemDetailState {
+export interface ItemDetailState {
   images: [];
   userId: number;
   username: string;
@@ -29,6 +31,8 @@ interface ItemDetailState {
   watchNumber: string;
   heartOn: boolean;
   price: number;
+  myPost: boolean;
+  profilePhoto: string;
 }
 
 interface OtherPosts {
@@ -53,7 +57,7 @@ const Detail = () => {
     if (num === 3) setIndex(1);
     else setIndex(num);
   };
-
+  console.log(itemDetail)
   const fetchItemsDetail = async () => {
     setLoading(true);
     const itemDetail: ItemsDetail = await apis.fetchItemDetail(detailId);
@@ -61,7 +65,11 @@ const Detail = () => {
     setOtherPosts(itemDetail.otherPosts);
     setLoading(false);
   };
-  
+
+  const handleLikeItem = async () => {
+    await apis.likeItem(detailId);
+  };
+
   useEffect(() => {
     fetchItemsDetail();
 
@@ -77,8 +85,10 @@ const Detail = () => {
         content: '',
         likeNumber: '',
         watchNumber: '',
+        profilePhoto: '',
         heartOn: false,
         price: 0,
+        myPost: false,
       });
       setOtherPosts([]);
     };
@@ -113,7 +123,7 @@ const Detail = () => {
       </div>
       <div className='w-full h-full p-2'>
         <div className='flex flex-row justify-start items-center'>
-          <div className='w-14 h-14 border rounded-full mr-5'></div>
+          <img src={itemDetail.profilePhoto} className='w-14 h-14 border rounded-full mr-5'></img>
           <div className='flex flex-col justify-start text-left'>
             <div>{itemDetail.username}</div>
             <div>{itemDetail.location ? itemDetail.location : '주소가 공개되지 않았습니다.'}</div>
@@ -123,7 +133,7 @@ const Detail = () => {
         <div className='p-4 text-[20px] flex flex-col justify-center items-start'>{itemDetail.title}</div>
         <div className='w-[98%] h-1 border-b-[1px] border-gray'></div>
         <div className='p-2'>
-          {category[itemDetail.category]} | {dayjs(itemDetail.createdAt).format('YYYY-MM-DD')}
+          {categoryObj[itemDetail.category]} | {dayjs(itemDetail.createdAt).format('YYYY-MM-DD')}
         </div>
         <div className='w-[98%] h-1 border-b-[1px] mt-1 border-gray'></div>
         <div className='w-full h-1/5 p-2'>{itemDetail.content}</div>
@@ -132,7 +142,7 @@ const Detail = () => {
         </div>
         <div className='w-[98%] h-1 border-b-[1px] mt-1 mb-4 border-gray'></div>
         <div>판매자의 다른 게시물</div>
-        <div className='flex justify-center items-center mt-10 gap-'>
+        <div className='flex justify-center items-center mt-10'>
           <div className=' grid grid-cols-2'>
             {otherPosts.map((value: OtherPosts, index: number) => (
               <Fragment key={value.postId}>
@@ -151,6 +161,28 @@ const Detail = () => {
                 </Link>
               </Fragment>
             ))}
+          </div>
+        </div>
+      </div>
+      <div className='w-full h-28'></div>
+      <div className='flex justify-center items-center m-auto'>
+        <div className='absolute bottom-0 w-[491px] h-16 bg-black rounded-b-[44px] border-black border-[1px] p-3'>
+          <div className='flex flex-row justify-between items-center text-[30px]'>
+            <button onClick={() => handleLikeItem()}>
+              <FontAwesomeIcon
+                icon={faHeart}
+                className={`${itemDetail.heartOn ? ' text-red-800' : 'text-white'} ml-9`}
+              />
+            </button>
+            {itemDetail.myPost && (
+              <Link href={{ pathname: '/market/edit', query: { id: detailId } }}>
+                <button className='text-white'>수정하기</button>
+              </Link>
+            )}
+
+            <div className='text-white text-[25px] mr-10'>
+              가격 : {itemDetail.price.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ',') + '원'}
+            </div>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { Fragment, useState } from 'react';
 import Link from 'next/link';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faClose, faBars, faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -11,6 +11,8 @@ const Header = () => {
     const searchKeyword = e.currentTarget.value;
     setKeyword(searchKeyword);
   };
+  const category = ['인기매물', '디지털기기', '생활가전', '가구/인테리어', '생활/주방', '유아', '여성의류'];
+  const categoryEn = ['hot', 'digitial', 'life', 'furniture', 'kitchen', 'baby', 'woman'];
 
   return (
     <>
@@ -28,7 +30,7 @@ const Header = () => {
       <div className='flex justify-center items-center'>
         {sideMenuShow ? (
           <div
-            className={`top-[143px] left-121 w-[491px] h-[941px] bg-white text-black fixed z-40 ease-in-out duration-300 rounded-[44px] border-black border ${
+            className={`top-[229px] left-121 w-[491px] h-[941px] bg-white text-black fixed z-40 ease-in-out duration-300 rounded-[44px] border-black border ${
               sideMenuShow ? 'translate-x-0 ' : 'translate-x-full'
             }`}
           >
@@ -38,7 +40,17 @@ const Header = () => {
                 <FontAwesomeIcon icon={faClose} onClick={() => setSideMenuShow(false)} />
               </button>
             </div>
-            <div></div>
+            <div className='grid grid-cols-4 gap-5 p-8 mt-10'>
+              {category.map((value: any, index: number) => (
+                <Fragment key={index}>
+                  <Link href={{ pathname: '/market/category', query: { category: categoryEn[index] } }}>
+                    <div>
+                      <div className='text-black mb-20'>{value}</div>
+                    </div>
+                  </Link>
+                </Fragment>
+              ))}
+            </div>
           </div>
         ) : (
           <></>

@@ -1,10 +1,8 @@
 import { PropsWithChildren, useEffect, useState } from 'react';
 import melon from 'public/melonmarket.svg';
 import Image from 'next/image';
-import { useRouter } from 'next/router';
 
 const BaseLayout = ({ children }: PropsWithChildren) => {
-  const router = useRouter();
   const BaseUrl = 'http://localhost:3000';
   const [home, setHome] = useState<boolean>(false);
 

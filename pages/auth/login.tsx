@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useEffect } from 'react';
 import Image from 'next/image';
 import melon from 'public/melonmarket.svg';
 import { useForm } from 'react-hook-form';
@@ -37,10 +37,10 @@ const Login = () => {
       const refreshToken = userSignInResponse.refreshToken;
       setTokens(accessToken, refreshToken);
       router.push('/market/main');
-      return { msg: 'test', res: true };
+      return { msg: '', res: true };
     } catch (error) {
       alert(error);
-      return { msg: 'test2', res: false };
+      return { msg: '존재 하지 않는 아이디 입니다.', res: false };
     }
   };
 

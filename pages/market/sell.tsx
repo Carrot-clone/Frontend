@@ -43,16 +43,21 @@ const Sell = () => {
   }, []);
 
   const writePost = async () => {
-    const writeReqeust = {
-      image: uploadImage,
-      title: getValues('title'),
-      category: getValues('category'),
-      price: getValues('price'),
-      content: getValues('content'),
+    const formdata = new FormData();
+    for (let i = 0; i < uploadImage.length; i++){
+      formdata.append('image',uploadImage[i])
+    }
+    formdata.append('title', getValues('title'))
+    formdata.append('price', getValues('price'))
+    formdata.append('content', getValues('content'))
+    formdata.append('category', 'baby')
+
+    try {await apis.postSellingItem(formdata)
+    router.push('/market/main')
+    } catch {
+      console.error();
+      
     };
-    console.log(writeReqeust)
-    const writeResponse = await apis.postSellingItem(writeReqeust)
-    console.log(writeResponse);
   };
 
   return (
@@ -99,8 +104,9 @@ const Sell = () => {
         <textarea className='w-full h-52 border' {...register('content')}></textarea>
       </div>
       <div className='flex flex-row justify-center items-center gap-5 mt-10'>
-        <button className='w-80 h-14 rounded-xl bg-green-50 hover:bg-green-100 font-soojin text-black-50'
-        onClick={() => writePost()}
+        <button
+          className='w-80 h-14 rounded-xl bg-green-50 hover:bg-green-100 font-soojin text-black-50'
+          onClick={() => writePost()}
         >
           작성하기
         </button>
